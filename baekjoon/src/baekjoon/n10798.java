@@ -8,8 +8,6 @@ public class n10798 {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 	
-		todaySub ts = new todaySub();
-		ts.todaySubject();
 		
 		String arr[] = new String [5];
 		
