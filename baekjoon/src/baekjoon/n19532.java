@@ -26,12 +26,7 @@ public class n19532 {
 				}
 			}
 		}
-		// 가감법 ax + by = c, dx + ey = f에서
-		// x = c-by/a
-		// eax + eby = ec
-		// bdx + bey = bf 일 때
-		// x = ec-bf / ea - bd
-		// 즉, y = cd-af/bd-ae
+		// 연립방정식의 가감법을 활용한 풀이
 		System.out.println(((e*c-b*f)/(e*a-b*d))+" "+((c*d-a*f)/(b*d-a*e)));
 		
 		
