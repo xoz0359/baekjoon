@@ -1,9 +1,8 @@
 package baekjoon;
 
-import java.util.*;
-import datastructure.Stack;
+import java.io.*;
 
-public class Main implements Stack {
+public class Main <T> {
 	
 	static Object[] arr;
 	static int capacity;
@@ -15,74 +14,79 @@ public class Main implements Stack {
 		size = 0;
 	}
 
-	@Override
 	public void push(Object o) {
 		size++;
-		arr = new Object[size];
+		Object narr[] = new Object[size];
+		for (int i = 0; i < size-1; i++) {
+			narr[i] = arr[i];
+		}
+		arr = narr;
 		arr[size-1] = o;
-
 	}
 
-	@Override
 	public Object pop() {
 		if (size < 1) {
 			return -1;
 		}
 		Object last = arr[size-1];
-		Object narr[] = new Object[size-1];
 		size--;
-		for (int i = 0; i < size-1; i++) {
+		Object narr[] = new Object[size];
+		for (int i = 0; i < size; i++) {
 			narr[i]= arr[i];
 		}
 		arr = narr;
 		return last;
-	
 	}
 
-	@Override
 	public int size() {
 		return size;
 	}
 
-	@Override
-	public boolean empty() {
+	public int empty() {
 		if (size > 0) {
-			return true;
+			return 0;
 		}else {
-			return false;
+			return 1;
 		}
-
 	}
 
-	@Override
 	public Object top() {
 		if (size < 1) {
 			return -1;
 		}
 		return arr[size-1];
-
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	throws IOException{
 		
-		Main s = new Main();
-		System.out.println(s.size());
-		Scanner input = new Scanner(System.in);
-		
-		int a = input.nextInt();
+		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		Main <Integer> s  = new  Main <Integer>();
+		int a = Integer.parseInt(input.readLine());
 		
 		for (int i=0; i<a; i++) {
-			if (input.next().equals("push")) {
-				s.push(input.nextInt());
-			}else if (input.next().equals("pop")) {
-				System.out.println("pop:"+s.pop());
-			}else if (input.next().equals("size")) {
-				System.out.println("size"+s.size());
-			}else if (input.next().equals("epmty")) {
-				System.out.println("empty:"+s.empty());
-			}else {
-				System.out.println("top:"+s.top());
+			String str = input.readLine(), odstr = "";
+			int sl = str.length();
+			for (int j = 0; j < sl; j++) {
+				if (str.charAt(j)==' ') {
+					odstr = str.substring(j+1);
+					str = str.substring(0, j);
+					break;
+				}
 			}
+
+			if (str.equals("push")) {
+				s.push(Integer.parseInt(odstr));
+			}else if (str.equals("pop")) {
+				System.out.println(s.pop());
+			}else if (str.equals("size")) {
+				System.out.println(s.size());
+			}else if (str.equals("empty")) {
+				System.out.println(s.empty());
+			}else if (str.equals("top")) {
+				System.out.println(s.top());
+			}
+			
 		}
 		
 	}
