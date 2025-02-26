@@ -1,93 +1,54 @@
 package baekjoon;
 
 import java.io.*;
+import java.util.*;
+import java.io.*;
 
-public class Main <T> {
-	
-	static Object[] arr;
-	static int capacity;
-	int size;
-	
-	public Main() {
-		arr = new Object[0];
-		capacity = 10;
-		size = 0;
-	}
+public class Main {
 
-	public void push(Object o) {
-		size++;
-		Object narr[] = new Object[size];
-		for (int i = 0; i < size-1; i++) {
-			narr[i] = arr[i];
-		}
-		arr = narr;
-		arr[size-1] = o;
-	}
+	public static void main(String[] args) throws IOException {
 
-	public Object pop() {
-		if (size < 1) {
-			return -1;
-		}
-		Object last = arr[size-1];
-		size--;
-		Object narr[] = new Object[size];
-		for (int i = 0; i < size; i++) {
-			narr[i]= arr[i];
-		}
-		arr = narr;
-		return last;
-	}
+		Main mi = new Main();
+		// BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		Scanner input = new Scanner(System.in);
+		int a = input.nextInt();
+		int b = input.nextInt();
+		StringBuffer sb = new StringBuffer();
+		// 시간 복잡도를 줄여보자
+		int arr[] = new int[a];
+		sb.append("<");
+		int cnt = 0, num = 0, cnt2 = 0;
+		boolean c = true;
+		while (cnt2 <= a) {
+			cnt++;
+			num++;
+			num = num > a ? 1 : num;
+			System.out.println(num+" "+cnt);
+			c = true;
+			if (cnt == b) {
+				cnt = 0;
 
-	public int size() {
-		return size;
-	}
-
-	public int empty() {
-		if (size > 0) {
-			return 0;
-		}else {
-			return 1;
-		}
-	}
-
-	public Object top() {
-		if (size < 1) {
-			return -1;
-		}
-		return arr[size-1];
-	}
-
-	public static void main(String[] args) 
-	throws IOException{
-		
-		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-		Main <Integer> s  = new  Main <Integer>();
-		int a = Integer.parseInt(input.readLine());
-		
-		for (int i=0; i<a; i++) {
-			String str = input.readLine(), odstr = "";
-			int sl = str.length();
-			for (int j = 0; j < sl; j++) {
-				if (str.charAt(j)==' ') {
-					odstr = str.substring(j+1);
-					str = str.substring(0, j);
-					break;
+				// 여기서 출구가 하나인 자료구조를 사용하면 시간복잡도를 더 줄일 수 있을 것 같다
+				for (int i = num+cnt2; i < arr.length; i++) {
+					if (arr[i - 1] == 0) {
+						arr[num - 1] = 1;
+						sb.append(i + " ");
+						break;
+					}
+					for (int j = 1; j <= num+cnt2; j++) {
+						if (arr[j - 1] == 0) {
+							arr[num - 1] = 1;
+							sb.append(j + " ");
+							break;
+						}
+					}
+					
 				}
+				cnt2++;
 			}
-
-			if (str.equals("push")) {
-				s.push(Integer.parseInt(odstr));
-			}else if (str.equals("pop")) {
-				System.out.println(s.pop());
-			}else if (str.equals("size")) {
-				System.out.println(s.size());
-			}else if (str.equals("empty")) {
-				System.out.println(s.empty());
-			}else if (str.equals("top")) {
-				System.out.println(s.top());
-			}
-			
 		}
-		
+		String str = sb.substring(0, sb.length() - 1);
+		str = str.replace(" ", ", ");
+		System.out.println(str + ">");
 	}
 }
