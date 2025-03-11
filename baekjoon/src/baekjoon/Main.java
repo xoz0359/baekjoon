@@ -11,15 +11,13 @@ public class Main {
 		Deque<Character> arr = new LinkedList<Character>();
 		for (int i = 0; i < a.length(); i++) {
 			arr.add(a.charAt(i));
-			if(arr.peekFirst().equals('<')) {
-				while(arr.isEmpty()==false) {
-				sb.append(arr.pollFirst());
-				}
+			if(arr.peekFirst() == '<') {
 				while(arr.peekFirst().equals('>')) {
 					sb.append(arr.pollFirst());
 				}
+			}else if(arr.peekFirst() == ' ')) {
 				
-			}else sb.append(arr.peekFirst());
+			}
 			
 		}
 		System.out.println(sb.toString());
