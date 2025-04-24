@@ -17,15 +17,20 @@ class Solution {
 			String numArr[] = list.get(i).split(",");
 			int num1 = Integer.parseInt(numArr[0]);
 			int num2 = Integer.parseInt(numArr[1]);
+            int num1Start = Math.max(0, num1-1);
+			int num1And = Math.min(board.length-1, num1+1);
+			int num2Start = Math.max(0, num2-1);
+			int num2And = Math.min(board[0].length-1, num2+1);
+			int temp = num2Start;
 			
-			board[num1][Math.min(board[0].length-1, num2+1)] = 1;
-			board[num1][Math.max(0, num2-1)] = 1;
-			board[Math.min(board.length-1, num1+1)][num2] = 1;
-			board[Math.min(board.length-1, num1+1)][Math.min(board[0].length-1, num2+1)] = 1;
-			board[Math.min(board.length-1, num1+1)][Math.max(0, num2-1)] = 1;
-			board[Math.max(0, num1-1)][num2] = 1;
-			board[Math.max(0, num1-1)][Math.min(board[0].length-1, num2+1)] = 1;
-			board[Math.max(0, num1-1)][Math.max(0, num2-1)] = 1;
+			while(num1Start <= num1And) {
+				num2Start = temp;
+				while(num2Start <= num2And) {
+					board[num1Start][num2Start] = 1;
+					num2Start++;
+				}
+				num1Start++;
+			}
 
 		}
 		
